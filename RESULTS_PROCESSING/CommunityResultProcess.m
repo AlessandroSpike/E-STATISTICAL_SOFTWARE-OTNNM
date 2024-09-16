@@ -77,7 +77,6 @@ for x = 1:size(ParamCombinations,2)
     axis tight
     grid on
     title([char(ParamNames{x})])
-    ylabel("Correlation")
     xticks(1:6)
     xticklabels({'Modul.-OT','Modul.-New.','Variation-OT','Variation-New.'})
     xlabel('Metrics')
