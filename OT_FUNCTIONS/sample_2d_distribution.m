@@ -1,9 +1,9 @@
-function [X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_distribution(P, k)
+function [X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_distribution(P, z)
     % Sample from a 2D Probability Distribution
     % This function samples points from a given 2D probability distribution
     % Inputs:
     %   P: A 2-D matrix representing the joint probability distribution
-    %   k: Number of samples to draw (default is 1 if not provided)
+    %   z: Number of samples to draw (default is 1 if not provided)
     % Outputs:
     %   X: Vector of sampled x-coordinates
     %   Y: Vector of sampled y-coordinates
@@ -12,9 +12,9 @@ function [X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_dist
     %   marginal_Y: Empirical marginal distribution along Y-axis
     %   sampled_joint: Empirical joint distribution from samples
 
-    % Set default value for k if not provided
+    % Set default value for z if not provided
     if nargin < 2
-        k = 1;
+        z = 1;
     end
 
     % Ensure P is a valid probability distribution
@@ -29,12 +29,12 @@ function [X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_dist
     cumsum_P = cumsum(P_flat);
 
     % Initialize output vectors
-    X = zeros(1, k);
-    Y = zeros(1, k);
-    indices = zeros(1, k);
+    X = zeros(1, z);
+    Y = zeros(1, z);
+    indices = zeros(1, z);
 
-    % Sample k points using inverse transform sampling
-    for i = 1:k
+    % Sample z points using inverse transform sampling
+    for i = 1:z
         % Generate a random number
         r = rand();
 
@@ -47,16 +47,16 @@ function [X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_dist
 
     % Compute empirical marginal distributions from samples
     [n, m] = size(P);
-    marginal_X = histcounts(X, 1:m+1) / k;
-    marginal_Y = histcounts(Y, 1:n+1) / k;
+    marginal_X = histcounts(X, 1:m+1) / z;
+    marginal_Y = histcounts(Y, 1:n+1) / z;
     
     % Ensure marginal_Y is a column vector to match the original distribution's shape
     marginal_Y = marginal_Y(:);
 
     % Compute sampled 2-D joint distribution
     sampled_joint = zeros(size(P));
-    for i = 1:k
+    for i = 1:z
         sampled_joint(Y(i), X(i)) = sampled_joint(Y(i), X(i)) + 1;
     end
-    sampled_joint = sampled_joint / k;
+    sampled_joint = sampled_joint / z;
 end

@@ -1,26 +1,26 @@
-function [Ci, Q] = OTmodularity_dir(A, gamma, plan)
+function [Ci, Q] = OTmodularity_dir(W, eta, plan)
     % Optimal Transport Modularity for Directed Networks
     % This function finds the optimal community structure and calculates modularity for a directed network
     % Inputs:
-    %   A: directed weighted/binary connection matrix
-    %   gamma: resolution parameter (optional, default = 1)
+    %   W: directed weighted/binary connection matrix
+    %   eta: resolution parameter (optional, default = 1)
     %   plan: optimal transport plan
     % Outputs:
     %   Ci: optimal community structure
     %   Q: maximized modularity
 
-    % Set default gamma if not provided
-    if ~exist('gamma', 'var')
-        gamma = 1;
+    % Set default eta if not provided
+    if ~exist('eta', 'var')
+        eta = 1;
     end
 
     % Initialize variables
-    N = length(A);
-    Ki = sum(A, 1);  % in-degree
+    N = length(W);
+    Ki = sum(W, 1);  % in-degree
     m = sum(Ki);
 
     % Compute modularity matrix
-    b = A - gamma * plan;
+    b = W - eta * plan;
     B = b + b.';  % Symmetrize the modularity matrix
 
     % Initialize community structure
