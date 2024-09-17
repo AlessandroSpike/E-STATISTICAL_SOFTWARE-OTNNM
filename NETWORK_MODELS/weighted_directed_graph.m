@@ -1,4 +1,4 @@
-function A = weighted_directed_graph(n, p, w_func)
+function W = weighted_directed_graph(n, p, w_func)
     % Weighted Directed Graph Model
     % This function generates a weighted directed graph using a probabilistic approach
     % Inputs:
@@ -6,10 +6,10 @@ function A = weighted_directed_graph(n, p, w_func)
     %   p: probability of edge formation
     %   w_func: function handle for generating weights
     % Output:
-    %   A: adjacency matrix of the generated weighted directed graph
+    %   W: adjacency matrix of the generated weighted directed graph
 
     % Initialize the adjacency matrix with zeros
-    A = zeros(n);
+    W = zeros(n);
 
     % Iterate through all possible edges
     for i = 1:n
@@ -19,7 +19,7 @@ function A = weighted_directed_graph(n, p, w_func)
                 % Decide whether to create an edge based on probability p
                 if rand < p
                     % If an edge is created, assign a weight using w_func
-                    A(i, j) = w_func();
+                    W(i, j) = w_func();
                     % Note: A(j, i) is not set, making the graph directed
                 end
             end
@@ -28,7 +28,7 @@ function A = weighted_directed_graph(n, p, w_func)
 end
 
 % Example usage:
-% A = weighted_directed_graph(100, 0.1, @() exprnd(1));
+% W = weighted_directed_graph(100, 0.1, @() exprnd(1));
 
 % Weighted Directed Graph Model:
 % This model extends the Erdős-Rényi (ER) model to weighted directed networks. 

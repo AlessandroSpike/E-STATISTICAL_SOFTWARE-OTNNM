@@ -1,4 +1,4 @@
-function A = strength_driven_attachment(n, m, alpha)
+function W = strength_driven_attachment(n, m, alpha)
     % Strength-Driven Attachment Model
     % This function generates a weighted undirected network using a strength-driven preferential attachment mechanism
     % Inputs:
@@ -6,19 +6,19 @@ function A = strength_driven_attachment(n, m, alpha)
     %   m: number of edges to attach from a new node to existing nodes
     %   alpha: preferential attachment exponent
     % Output:
-    %   A: adjacency matrix of the generated network
+    %   W: adjacency matrix of the generated network
     
     % Initialize the network with m+1 nodes
-    A = zeros(n);
+    W = zeros(n);
     % Create initial random connections between the first m+1 nodes
-    A(1:m+1, 1:m+1) = triu(rand(m+1), 1);
+    W(1:m+1, 1:m+1) = triu(rand(m+1), 1);
     % Make the network undirected by adding the transpose
-    A = A + A';
+    W = W + W';
     
     % Add remaining nodes one by one
     for i = m+2:n
         % Calculate node strengths (sum of edge weights) for existing nodes
-        strengths = sum(A(1:i-1, 1:i-1));
+        strengths = sum(W(1:i-1, 1:i-1));
         
         % Calculate attachment probabilities based on node strengths
         probs = strengths.^alpha;
@@ -40,8 +40,8 @@ function A = strength_driven_attachment(n, m, alpha)
         % Add new edges with random weights
         for j = 1:m
             weight = rand();  % Generate a random weight between 0 and 1
-            A(i, targets(j)) = weight;
-            A(targets(j), i) = weight;  % Ensure the network remains undirected
+            W(i, targets(j)) = weight;
+            W(targets(j), i) = weight;  % Ensure the network remains undirected
         end
     end
 end
