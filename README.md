@@ -19,25 +19,25 @@ Sinkhorn-Knopp Algorithm for Optimal Transport. This function computes the optim
 [plan, totalCost] = multi_obj_ot(marginal1, marginal2, costMatrix1, costMatrix2, gamma, lambda, max_iter)
 Multi-Objective Optimal Transport. This function solves a multi-objective optimal transport problem using the Sinkhorn algorithm
 
-[Ci, Q] = OTmodularity_dir(A, gamma, plan)
+[Ci, Q] = OTmodularity_dir(W, eta, plan)
 Optimal Transport Modularity for Directed Networks. This function finds the optimal community structure and calculates modularity for a directed network
 
-[X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_distribution(P, k)
+[X, Y, indices, marginal_X, marginal_Y, sampled_joint] = sample_2d_distribution(P, z)
 Sample from a 2D Probability Distribution. This function samples points from a given 2D probability distribution
   
 
 NETWORK_MODELS directory:
 
-A = weighted_directed_graph(n, p, w_func)
+W = weighted_directed_graph(n, p, w_func)
 Weighted Directed Graph Model. This function generates a weighted directed graph using a probabilistic approach
 
-A = strength_driven_attachment(n, m, alpha)
+W = strength_driven_attachment(n, m, alpha)
 Strength-Driven Attachment Model. This function generates a weighted undirected network using a strength-driven preferential attachment mechanism
 
-A = fitness_based_model_directed(n, p, fitness_func, weight_func)
+W = fitness_based_model_directed(n, p, fitness_func, weight_func)
 This function generates a directed weighted network based on node fitness
 
-[A, communities] = community_directed_weighted_network(n, k, p_in, p_out, sparsity, asymmetry)
+[W, communities] = community_directed_weighted_network(n, c, p_in, p_out, sparsity, asymmetry)
 This function generates a directed weighted network with community structure
   
 
@@ -49,13 +49,13 @@ Compute_network_properties. Calculates network properties from adjacency matrix
 [Answer,Canceled] = inputsdlg(Prompt, Title, Formats, DefAns, Options)
 INPUTSDLG Enhanced input dialog box supporting multiple data types
 
-[Ci,Q]=modularity_dir(A,gamma)
+[Ci,Q]=modularity_dir(W,eta)
 Modularity for Directed Networks. This function finds the optimal community structure and calculates modularity for a directed network
 
 [VIn] = variation_of_information(Cx, Cy)
 VARIATION_OF_INFORMATION Calculates the normalized variation of information between community partitions
 
-visualize_network(A, options, community_labels)
+visualize_network(W, options, community_labels)
 VISUALIZE_NETWORK Visualize a network given its adjacency matrix
     
 
