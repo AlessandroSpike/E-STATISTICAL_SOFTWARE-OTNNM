@@ -1,20 +1,20 @@
-function visualize_network(A, options, community_labels)
+function visualize_network(W, options, community_labels)
 % VISUALIZE_NETWORK Visualize a network given its adjacency matrix
-%   A: Adjacency matrix (can be binary or weighted)
+%   W: Adjacency matrix (can be binary or weighted)
 %   options: (Optional) Structure with visualization options
 %   community_labels: (Optional) Vector of community labels for nodes
 %
 % Example usage:
 % 1. With only adjacency matrix:
-%    visualize_network(A)
+%    visualize_network(W)
 % 
 % 2. With custom options:
 %    options = struct('Layout', 'force', 'EdgeWidthScale', 2, 'NodeSizeScale', 20, 'ColorMap', 'jet', 'Directed', true);
-%    visualize_network(A, options)
+%    visualize_network(W, options)
 %
 % 3. With community labels:
 %    community_labels = [1, 1, 2, 2, 3, 3];
-%    visualize_network(A, options, community_labels)
+%    visualize_network(W, options, community_labels)
 
     % Check inputs and set defaults
     if nargin < 2
@@ -29,13 +29,13 @@ function visualize_network(A, options, community_labels)
 
     % Create graph object
     if options.Directed
-        G = digraph(A);
+        G = digraph(W);
     else
-        G = graph(A);
+        G = graph(W);
     end
 
     % Compute node sizes
-    node_sizes = compute_node_sizes(A, options);
+    node_sizes = compute_node_sizes(W, options);
 
     % Compute edge widths and colors
     [edge_widths, edge_colors] = compute_edge_properties(G, options);
@@ -45,7 +45,7 @@ function visualize_network(A, options, community_labels)
         node_colors = 10*community_labels;
         color_data = 'community';
     else
-        node_colors = sum(abs(A), 2);  % Node strength
+        node_colors = sum(abs(W), 2);  % Node strength
         color_data = 'strength';
     end
 
@@ -89,8 +89,8 @@ function options = set_default_options(options)
     options = setstructfields(options,default_options);
 end
 
-function node_sizes = compute_node_sizes(A, options)
-    node_strengths = sum(abs(A), 2);  % Use absolute values for negative weights
+function node_sizes = compute_node_sizes(W, options)
+    node_strengths = sum(abs(W), 2);  % Use absolute values for negative weights
     node_sizes = normalize_sizes(node_strengths, options.NodeSizeScale);
 end
 
