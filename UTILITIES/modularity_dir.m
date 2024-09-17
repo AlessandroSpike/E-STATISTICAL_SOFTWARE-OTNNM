@@ -1,27 +1,27 @@
-function [Ci,Q]=modularity_dir(A,gamma)
+function [Ci,Q]=modularity_dir(W,eta)
     % Modularity for Directed Networks
     % This function finds the optimal community structure and calculates modularity for a directed network
     % Inputs:
-    %   A: directed weighted/binary connection matrix
-    %   gamma: resolution parameter (optional, default = 1)
+    %   W: directed weighted/binary connection matrix
+    %   eta: resolution parameter (optional, default = 1)
     % Outputs:
     %   Ci: optimal community structure
     %   Q: maximized modularity
 
-% Set default gamma if not provided
-if ~exist('gamma','var')
-    gamma = 1;
+% Set default eta if not provided
+if ~exist('eta','var')
+    eta = 1;
 end
 
 % Initialize variables
-N=length(A);                            %number of vertices
-Ki=sum(A,1);                            %in-degree
-Ko=sum(A,2);                            %out-degree
+N=length(W);                            %number of vertices
+Ki=sum(W,1);                            %in-degree
+Ko=sum(W,2);                            %out-degree
 m=sum(Ki);   
 aa=(Ko*Ki).'/m;
 
 % Compute modularity matrix
-b=A-gamma*(aa);
+b=W-eta*(aa);
 B=b+b.';                            	%directed modularity matrix
 
 % Initialize community structure
